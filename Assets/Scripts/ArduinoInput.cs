@@ -1,7 +1,9 @@
-﻿/* ArduinoConnector by Alan Zucconi
- * http://www.alanzucconi.com/?p=2979
+﻿/* 
+ * This was super helpful:
+ * http://slides.com/robinbaumgarten/arduino-unity3d/#/0/7
  */
 using UnityEngine;
+using System;
 using System.IO.Ports;
 
 public class ArduinoInput : MonoBehaviour {
@@ -23,9 +25,13 @@ public class ArduinoInput : MonoBehaviour {
 	}
 
 	void Update () 
-	{
-		string value = stream.ReadLine(); //Read the information
-		Debug.Log(value);
+	{	
+		try {
+			string value = stream.ReadLine(); //Read the information
+			Debug.Log(value);
+		} catch {
+			Debug.Log ("timed Out");
+		}
 		//string[] data = value.Split(','); 
 		// ...
 	}
