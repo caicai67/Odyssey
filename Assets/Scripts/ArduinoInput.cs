@@ -3,10 +3,13 @@
  * http://slides.com/robinbaumgarten/arduino-unity3d/#/0/7
  */
 using UnityEngine;
+//using UnityEditor.Animations;
 using System;
 using System.IO.Ports;
 
 public class ArduinoInput : MonoBehaviour {
+
+	//public Animator stateAC;
 	/*
 	 * portname Make sure the name here is related to the port in the arduino app 
 	 * (in this case the port was called "/dev/cu.usbmodem1421" in arduino and "/dev/tty.usbmodem1421" 
@@ -20,20 +23,28 @@ public class ArduinoInput : MonoBehaviour {
 
 	void Start () 
 	{
-		stream.ReadTimeout = 50;
-		stream.Open(); //Open the Serial Stream.
+		stream.Open();
+		stream.ReadTimeout = 100;
+		 //Open the Serial Stream.
 	}
 
 	void Update () 
 	{	
+		
+
 		try {
 			string value = stream.ReadLine(); //Read the information
-			Debug.Log(value);
+			//stateAC.SetBool("CirceLifted", value[0] == '0');
+			//Debug.Log(stateAC.GetBool("CirceLifted"));
+			Debug.Log (value);
 		} catch {
 			Debug.Log ("timed Out");
 		}
 		//string[] data = value.Split(','); 
 		// ...
+	}
+	void OnDestroy() {
+		stream.Close ();
 	}
 }
 
